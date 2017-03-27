@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { createClass, PropTypes } from 'react';
 import MainNav from './MainNav';
 import PageFooter from './PageFooter';
 
-const Root = React.createClass({
+const Root = createClass({
   statics: {
-    getPages() {
+    getPages () {
       return [
         'index.html',
         'getting-started.html',
@@ -26,20 +26,20 @@ const Root = React.createClass({
         'preloader.html',
         'sidenav.html',
         'table.html',
-        'tabs.html',
+        'tabs.html'
       ];
     }
   },
 
   childContextTypes: {
-    metadata: React.PropTypes.object
+    metadata: PropTypes.object
   },
 
-  getChildContext() {
+  getChildContext () {
     return {metadata: Root.propData};
   },
 
-  render() {
+  render () {
     let header = {
       __html: `<title>React Materialize</title>
               <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -55,22 +55,22 @@ const Root = React.createClass({
       __html: `window.PROP_DATA = ${JSON.stringify(Root.propData)};`
     };
 
+    const { location, children } = this.props;
+
     return (
       <html>
         <head dangerouslySetInnerHTML={header} />
         <body>
-          <MainNav location={this.props.location.pathname}/>
+          <MainNav location={location.pathname} />
           <main>
-            <div className="container" >
-              {this.props.children}
-            </div>
+            <div className='container'>{children}</div>
           </main>
           <PageFooter />
-          <script src="node_modules/jquery/dist/jquery.js"></script>
-          <script src="node_modules/materialize-css/bin/materialize.js"></script>
-          <script src="node_modules/prismjs/prism.js"></script>
+          <script src='node_modules/jquery/dist/jquery.js' />
+          <script src='node_modules/materialize-css/bin/materialize.js' />
+          <script src='node_modules/prismjs/prism.js' />
           <script type='text/javascript' dangerouslySetInnerHTML={browserInitScriptObj} />
-          <script src="assets/bundle.js" type="text/javascript"/>
+          <script src='assets/bundle.js' type='text/javascript' />
         </body>
       </html>
     );

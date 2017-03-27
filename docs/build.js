@@ -1,8 +1,8 @@
 import fsp from 'fs-promise';
 import path from 'path';
 import React from 'react';
-import ReactDOMServer from 'react-dom/server';
-import {match, RoutingContext} from 'react-router';
+import { renderToString } from 'react-dom/server';
+import {match, RoutingContext} from 'react-router-dom';
 
 import Root from './src/Root';
 import routes from './src/Routes';
@@ -15,7 +15,7 @@ function generateHTML(fileName) {
   return new Promise( resolve => {
     const location = fileName === 'index.html' ? '/' : `/${fileName}`;
     match({routes, location}, (error, redirectLocation, renderProps) => {
-      let html = ReactDOMServer.renderToString(
+      let html = renderToString(
         <RoutingContext {...renderProps} />
       );
       html = '<!doctype html>' + html;
